@@ -1,0 +1,86 @@
+<div class="calculator-card">
+
+  <div class="calculator-header">
+    <h1>Calculatrice</h1>
+    <p>Vous pouvez  entrer deux nombres et sélectionner une opération. Suite à la soumission,
+l'application vous donnera le résultat de l'opération.</p>
+  </div>
+
+  <div class="input-group">
+    <label for="pNombre">Premier nombre</label>
+    <input
+      id="first"
+      type="number"
+      #first
+      (input)="resetResult()"
+    >
+  </div>
+
+  <div class="input-group">
+    <label for="dNombre">Second nombre</label>
+    <input
+      id="second"
+      type="number"
+      #second
+      (input)="resetResult()"
+    >
+  </div>
+
+  <div class="operation-section">
+    <span class="section-label">Opération</span>
+
+    <div class="operations">
+      <button
+        type="button"
+        class="operation-button"
+        [class.selected]="calculChosi === '+'"
+        (click)="selectOperation('+')">
+        +
+      </button>
+
+      <button
+        type="button"
+        class="operation-button"
+        [class.selected]="calculChosi === '-'"
+        (click)="selectOperation('-')">
+        −
+      </button>
+
+      <button
+        type="button"
+        class="operation-button"
+        [class.selected]="calculChosi === '*'"
+        (click)="selectOperation('*')">
+        ×
+      </button>
+
+      <button
+        type="button"
+        class="operation-button"
+        [class.selected]="calculChosi === '/'"
+        (click)="selectOperation('/')">
+        ÷
+      </button>
+    </div>
+  </div>
+
+  <button
+    class="submit-button"
+    [disabled]="calculChosi === ''"
+    (click)="calculate(first.value, second.value)">
+    Calculer
+  </button>
+
+  <div class="result-section">
+    <label >Résultat</label>
+
+    <div class="result-value">
+        @if (result === null) {
+        --
+        } @else {
+        {{ result }}
+        }
+    </div>
+  </div>
+
+</div>

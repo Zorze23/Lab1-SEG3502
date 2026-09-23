@@ -2,12 +2,12 @@
 
   <div class="calculator-header">
     <h1>Calculatrice</h1>
-    <p>Vous pouvez  entrer deux nombres et sélectionner une opération. Suite à la soumission,
-l'application vous donnera le résultat de l'opération.</p>
+    <p>Vous pouvez entrer deux nombres et sélectionner une opération. Suite à la soumission,
+      l'application vous donnera le résultat de l'opération.</p>
   </div>
 
   <div class="input-group">
-    <label for="pNombre">Premier nombre</label>
+    <label for="first">Premier nombre:</label>
     <input
       id="first"
       type="number"
@@ -17,7 +17,7 @@ l'application vous donnera le résultat de l'opération.</p>
   </div>
 
   <div class="input-group">
-    <label for="dNombre">Second nombre</label>
+    <label for="second">Second nombre:</label>
     <input
       id="second"
       type="number"
@@ -27,13 +27,13 @@ l'application vous donnera le résultat de l'opération.</p>
   </div>
 
   <div class="operation-section">
-    <span class="section-label">Opération</span>
+    <span class="section-label">Opération:</span>
 
     <div class="operations">
       <button
         type="button"
         class="operation-button"
-        [class.selected]="calculChosi === '+'"
+        [class.selected]="selectedOperation === '+'"
         (click)="selectOperation('+')">
         +
       </button>
@@ -41,7 +41,7 @@ l'application vous donnera le résultat de l'opération.</p>
       <button
         type="button"
         class="operation-button"
-        [class.selected]="calculChosi === '-'"
+        [class.selected]="selectedOperation === '-'"
         (click)="selectOperation('-')">
         −
       </button>
@@ -49,7 +49,7 @@ l'application vous donnera le résultat de l'opération.</p>
       <button
         type="button"
         class="operation-button"
-        [class.selected]="calculChosi === '*'"
+        [class.selected]="selectedOperation === '*'"
         (click)="selectOperation('*')">
         ×
       </button>
@@ -57,7 +57,7 @@ l'application vous donnera le résultat de l'opération.</p>
       <button
         type="button"
         class="operation-button"
-        [class.selected]="calculChosi === '/'"
+        [class.selected]="selectedOperation === '/'"
         (click)="selectOperation('/')">
         ÷
       </button>
@@ -66,21 +66,23 @@ l'application vous donnera le résultat de l'opération.</p>
 
   <button
     class="submit-button"
-    [disabled]="calculChosi === ''"
+    [disabled]="selectedOperation === ''"
     (click)="calculate(first.value, second.value)">
     Calculer
   </button>
 
   <div class="result-section">
-    <label >Résultat</label>
+    <span class="section-label">Résultat:</span>
 
-    <div class="result-value">
-        @if (result === null) {
+    <output class="result-value">
+      @if (errorMessage) {
+        {{ errorMessage }}
+      } @else if (result === null) {
         --
-        } @else {
-        {{ result }}
-        }
-    </div>
+      } @else {
+        {{ result | number: '1.0-2' }}
+      }
+    </output>
   </div>
 
 </div>

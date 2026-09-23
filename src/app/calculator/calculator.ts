@@ -1,48 +1,56 @@
 import { Component } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-calculator',
   standalone: true,
+  imports: [DecimalPipe],
   templateUrl: './calculator.html',
   styleUrl: './calculator.css'
 })
 export class Calculator {
-  result: number | string | null = null;
-  calculChosi = '';
+  result: number | null = null;
+  errorMessage = '';
+  selectedOperation = '';
 
   selectOperation(operation: string): void {
-    this.calculChosi = operation;
+    this.selectedOperation = operation;
     this.resetResult();
   }
 
   resetResult(): void {
     this.result = null;
+    this.errorMessage = '';
   }
 
-  calculate(p: string, d: string): void {
-    const pNombre = Number(p);
-    const dNombre = Number(d);
+  calculate(first: string, second: string): void {
+    this.resetResult();
 
-    switch (this.calculChosi) {
+    if (first.trim() === '' || second.trim() === '') {
+      this.errorMessage = 'Veuillez entrer deux nombres';
+      return;
+    }
+
+    const firstNumber = Number(first);
+    const secondNumber = Number(second);
+
+    switch (this.selectedOperation) {
       case '+':
-        this.result = pNombre + dNombre;
+        this.result = firstNumber + secondNumber;
         break;
-
       case '-':
-        this.result = pNombre - dNombre;
+        this.result = firstNumber - secondNumber;
         break;
-
       case '*':
-        this.result = pNombre * dNombre;
+        this.result = firstNumber * secondNumber;
         break;
-
       case '/':
-        if (dNombre === 0) {
-          this.result = "indéfini";
+        if (secondNumber === 0) {
+          this.errorMessage = 'indéfini';
         } else {
-          this.result = pNombre / dNombre;
-      }
-  break;
+          this.result = firstNumber / secondNumber;
+        }
+        break;
     }
   }
 }
